@@ -2,26 +2,63 @@
 <html lang="en">
 
 <head>
-  <%- include('../partials/head') %>
+    <%- include('../partials/head') %>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@400;700&display=swap" rel="stylesheet">
+    <link href="src/views/pages/stylesheet.css" rel="stylesheet">
+      <style>
+        h1{
+          font-family: 'Encode Sans Semi Expanded', sans-serif;
+          font-size: 80px;
+        }
+        body{
+          margin: 0;
+          min-height: 100%;
+        }
+        html{
+          min-height: 100%;
+          margin: 0;
+          background-image: url("https://img.freepik.com/free-photo/abstract-blur-interior-coffee-shop-cafe-background_42682-256.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        .column {
+          float: left;
+          width: 50%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+
+        img {
+          width: 200px;
+        }
+      </style>
 </head>
 
 <body>
-  <header>
-    <%- include('../partials/nav') %>
-  </header>
-
-  <div class="container">
-    Sign Up for a new account or <a href="/sign-in">click here to sign in with an existing account</a>
-    <form id="login-form">
-      <label>Login</label>
-      <input id="login" type="text" name="login" />
-      <label>Password</label>
-      <input type="password" name="password" />
-      <button>Log in</button>
-    </form>
-    <div id="login-error" style="display: none;">
+  <div class="row">
+    <div class="column">
+      <img src="static/smallTalklogo.jpg">
     </div>
-    <a href="/dashboard">Dashboard</a>
+    <div class="column">
+      Sign Up for a new account or <a href="/sign-in">click here to sign in with an existing account</a>
+      <form id="signup-form">
+        <label>Email</label>
+        <input id="email" type="email" name="email" />
+        <label>Password</label>
+        <input type="password" name="password" />
+        <button>Sign Up</button>
+      </form>
+      <div id="login-error" style="display: none;">
+      </div>
+      <a href="/dashboard">Dashboard</a> 
+    </div>
   </div>
 </body>
 
@@ -43,54 +80,54 @@
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+//const app = initializeApp(firebaseConfig);
 
-    const app = firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
-    app.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+app.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-    document
-      .getElementById("login-form")
-      .addEventListener("submit", (event) => {
-        event.preventDefault();
-        const login = event.target.login.value;
-        const password = event.target.password.value;
+document
+  .getElementById("signup-form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
 
-        // CS5356 TODO #3
-        // Create a new user using the Firebase SDK for Web
-        // Get the users ID token
-        // Start a new session with the users ID token
-        // Redirect the user to the /dashboard
-        app.auth().createUserWithEmailAndPassword(login, password)
-           .then((userCredential) => {
-             // Create a new user using the Firebase SDK for Web
-             const user = userCredential.user;
-             // Get the users ID token
-             user.getIdToken().then(idToken => {
-               // Start a new session with the users ID token
-               fetch('/sessionLogin', {
-                 method: 'POST',
-                 headers: { 'Content-Type': 'application/json' },
-                 body: JSON.stringify({ 
-                   idToken: idToken,
-                   plan: 'free' 
-                 })
-               }).then(() => {
-                 console.log('success!')
-                 // Redirect the user to the /dashboard
-                 window.location.replace("/dashboard")
-               })
-             });
-           })
-           .catch((error) => {
-             const errorCode = error.code;
-             const errorMessage = error.message;
-             // ..
-           });
+    // CS5356 TODO #3
+    // Create a new user using the Firebase SDK for Web
+    // Get the users ID token
+    // Start a new session with the users ID token
+    // Redirect the user to the /dashboard
+    app.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Create a new user using the Firebase SDK for Web
+          const user = userCredential.user;
+          // Get the users ID token
+          user.getIdToken().then(idToken => {
+            // Start a new session with the users ID token
+            fetch('/sessionLogin', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                idToken: idToken,
+                plan: 'free' 
+              })
+            }).then((response)=>{
+                return response.json()
+              }).then((responseBody) => {
+                window.location.assign('/dashboard')
+              })
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
 
-        return false;
-      });
-  };
+    return false;
+  });
+};
 </script>
 
 </html>
