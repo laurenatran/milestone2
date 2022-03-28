@@ -4,9 +4,27 @@
 <head>
   <%- include('../partials/head') %>
     <!-- Include any custom css classes that you want available on this page here -->
-    <style>
-
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@400;700&display=swap" rel="stylesheet">
+    <link href="src/views/pages/stylesheet.css" rel="stylesheet">
+      <style>
+        h1{
+          font-family: 'Encode Sans Semi Expanded', sans-serif;
+          font-size: 80px;
+        }
+        body{
+          margin: 0;
+          min-height: 100%;
+        }
+        html{
+          min-height: 100%;
+          margin: 0;
+          background-image: url("https://img.freepik.com/free-photo/abstract-blur-interior-coffee-shop-cafe-background_42682-256.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      </style>
 </head>
 
 <body>
@@ -15,32 +33,19 @@
   </header>
 
   <!-- CS5356 TODO #1 Add your landing page here -->
-  <section class="hero is-halfheight" style="background-image: url('https://blog.policyexpert.co.uk/wp-content/uploads/2013/11/iStock-628925952-1024x388.jpg')">
-    <div class="hero-head">
-      <div class="columns">
-        <div class="column"></div>
-        <div class="column">
-          <h1 class="title is-1" style="text-shadow: 3px 3px 8px black; color: white; font-size: 60px; margin-top: 60px">Ruffhouse</h1>
-          <h2 style="text-shadow: 3px 3px 8px black; color: white; font-size: 30px; margin-right: 20px">A social media platform for everything pet friendly</h2>
-          <a class="button is-rounded is-warning" href="/sign-up" style="font-size: 15px; margin: 20px">Sign Up</a>
-          <a class="button is-rounded is-warning " href="/sign-in" style="font-size: 15px; margin: 20px">Sign In</a>
-         </div>
-      </div>
+  
+  <img src="src/views/pages/smallTalklogo.png" alt="logo" width="400" height="400">
+  <div class="columns">
+    <div class="column">
+      <p>test left</p>
     </div>
-  </section>
-
-    <section class="hero is-halfheight" style="background-color: darkkhaki;">
-      <div class="hero-body">
-        <section style="margin: 30px">
-            <p class="title" style="text-shadow: 2px 2px 2px black; font-size: 30px; color: white">Dogs can benefit a lot from socializing with other dogs, but it can be hard finding a place for them to do that. Ruffhouse's solution is a web app that allows for people to share a constant stream of dog pictures.</p>
-            <p class="title" style="text-shadow: 2px 2px 2px black; font-size: 20px; color: white">Sign up for Ruffhouse using your email to create an account or sign into an existing account to share and view posts!</p>
-         </section>
-      </div>
-      </section>
-
-
-</body>
+    <div class="column">
+      <p>test right</p>
+    </div>
+  </div>
+ 
 
 <%- include('../partials/footer') %>
+</body>
 
 </html>
