@@ -5,6 +5,8 @@
     <%- include('../partials/head') %>
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded&display=swap" rel="stylesheet">  
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@400;700&display=swap" rel="stylesheet">
       <style>
         h1{
@@ -23,11 +25,18 @@
           background-size: cover;
         }
         .column {
+          height: 100%;
           float: left;
           width: 50%;
         }
 
-        /* Clear floats after the columns */
+        .column-color {
+          position: absolute;
+          width: 40%;
+          background-color:rgba(100, 185, 238, 0.75);
+          margin-left: 900px;
+        }
+
         .row:after {
           content: "";
           display: table;
@@ -35,28 +44,85 @@
         }
 
         img {
-          width: 200px;
+          width: 450px;
+          margin-top: 200px;
+          margin-left: 200px;
         }
+
+        .sign-up-content {
+          margin-top: 100px;
+          margin-left: 50px;
+        }
+
+        .header {
+          font-size: 45px;
+          font-family: 'Encode Sans Semi Expanded', sans-serif;
+          color: rgba(0,36,86,1);
+          font-weight: bold;
+        }
+
+        .form{
+          margin-top: 40px;
+          margin-left: 150px;
+        }
+
+        .other{
+          margin-top: 280px;
+          margin-left: 120px;
+          color: rgba(0,36,86,1);
+          font-weight: bold;
+        }
+
+        button{
+          background-color:rgba(237, 207, 46, 1);
+          color:rgba(0,36,86,1);
+          font-weight: bold; 
+          border-radius: 20px;
+          margin-left: 75px;
+          height: 50px;
+          width: 150px; 
+        }
+
+        input{
+          border-radius: 100px;
+          height: 50px;
+          width: 300px; 
+          margin-bottom: 10px;
+          text-align: center;
+        }
+
+
       </style>
 </head>
 
 <body>
   <div class="row">
     <div class="column">
-      <img src="static/smallTalklogo.jpg">
+      <a href="/">
+        <img src="static/smallTalklogo.jpg"> 
+      </a>
     </div>
-    <div class="column">
-      Sign Up for a new account or <a href="/sign-in">click here to sign in with an existing account</a>
-      <form id="signup-form">
-        <label>Email</label>
-        <input id="email" type="email" name="email" />
-        <label>Password</label>
-        <input type="password" name="password" />
-        <button>Sign Up</button>
-      </form>
+    <div class="column-color">
+      <div class="sign-up-content">
+        <div class="header">
+          Join us in bringing casual back into our daily interactions
+        </div>
+        <div class="form">
+          <form id="signup-form">
+            <input id="firstname" type="text" name="firstname" placeholder="First Name" />
+            <input id="lastname" type="text" name="lastname" placeholder="Last Name" />
+            <input id="email" type="email" name="email" placeholder="Email" />
+            <input type="password" name="password" placeholder="Password" />
+            <br>
+            <button>Sign Up</button>
+          </form>  
+        </div>
+        <div class="other">
+          <a href="/sign-in">click here to sign in with an existing account</a> 
+        </div>
+      </div>
       <div id="login-error" style="display: none;">
       </div>
-      <a href="/dashboard">Dashboard</a> 
     </div>
   </div>
 </body>
@@ -78,9 +144,6 @@
       measurementId: "G-1QFGGBKLC7"
 };
 
-// Initialize Firebase
-//const app = initializeApp(firebaseConfig);
-
 const app = firebase.initializeApp(firebaseConfig);
 
 app.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -94,7 +157,6 @@ document
 
     app.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-          // Signed in 
         const user = userCredential.user;
         user.getIdToken().then((idToken) => {
           fetch('/sessionLogin', {
@@ -103,20 +165,13 @@ document
             body: JSON.stringify({
               idToken: idToken,
               plan: 'free'
-            })}).then(() => window.location.assign('/dashboard'))  // Redirect the user to the /dashboard
+            })}).then(() => window.location.assign('/dashboard')) 
           })
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
-
-
-        // CS5356 TODO #3
-        // Create a new user using the Firebase SDK for Web
-        // Get the users ID token
-        // Start a new session with the users ID token
-        // Redirect the user to the /dashboard
 
         return false;
   });
