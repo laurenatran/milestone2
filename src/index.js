@@ -9,10 +9,10 @@ const port = process.env.PORT || 8080;
 // CS5356 TODO #2
 // Uncomment this next line after you've created
 // serviceAccountKey.json
-const serviceAccount = require("./../config/serviceAccountKey.json");
+const serviceAccount = require("./config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
-const { restart } = require("nodemon");
+// const { restart } = require("nodemon");
 
 // CS5356 TODO #2
 // Uncomment this next block after you've created serviceAccountKey.json
@@ -56,28 +56,46 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 app.post("/sessionLogin", async (req, res) => {
   // CS5356 TODO #4
   // Get the ID token from the request body
-  const idToken = req.body.idToken.toString();
-  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+  //const idToken = req.body.idToken.toString();
+  //const expiresIn = 60 * 60 * 24 * 5 * 1000;
   // Create a session cookie using the Firebase Admin SDK
-  admin.auth()
-  .createSessionCookie(idToken, { expiresIn })
-  .then(
-    (sessionCookie) => {
+  //admin.auth()
+  //.createSessionCookie(idToken, { expiresIn })
+  //.then(
+  //  (sessionCookie) => {
       // Set cookie policy for session cookie.
-      const options = { maxAge: expiresIn, httpOnly: true, secure: true };
-      console.log("set session");
-      res.cookie('session', sessionCookie, options);
-      res.status(200).send(JSON.stringify({ status: "success" }));
+  //    const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+  //    console.log("set session");
+  //    res.cookie('session', sessionCookie, options);
+  //    res.status(200).send(JSON.stringify({ status: "success" }));
 
-    },
-    (error) => {
-      res.status(401).send('UNAUTHORIZED REQUEST!');
-    }
-  );
+  //  },
+  //  (error) => {
+  //    res.status(401).send('UNAUTHORIZED REQUEST!');
+  //  }
+  //);
 
-});
+//});
   // Set that cookie with the name 'session'
   // And then return a 200 status code instead of a 501
+
+  const body = req.body;
+  const idToken = body.idToken;
+  
+  const expiresIn = 3600 * 1000;
+  admin.auth().createSessionCookie(idToken, {expiresIn})
+  .then(
+    (sessionCookie) => {
+      const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+      res.cookie('session', sessionCookie, options);
+      res.status(201).send(JSON.stringify({ status: 'sucess'}));
+    },
+    (error) => {
+      debugger
+      res.status(401).send(error.toString());
+    }
+  )
+});
 
 
 app.get("/sessionLogout", (req, res) => {
@@ -90,11 +108,10 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
   // Get the message that was submitted from the request body
   // Get the user object from the request body
   // Add the message to the userFeed so its associated with the user
-  const message = req.body.message
-  const user = req.user
-  await userFeed.add(user, message)
-  res.redirect('/dashboard')
-});
+  const dogMessage = req.body
 
+  await userFeed.add(req.user, dogMessage.message)
+  res.redirect("/dashboard");
+});
 app.listen(port);
 console.log("Server started at http://localhost:" + port);
