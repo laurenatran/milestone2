@@ -6,8 +6,6 @@ const admin = require("firebase-admin");
 const app = express();
 const port = process.env.PORT || 8080;
 
-//app.use( express.static( "public" ) );
-
 // CS5356 TODO #2
 // Uncomment this next line after you've created
 // serviceAccountKey.json
