@@ -108,11 +108,10 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
   // Get the message that was submitted from the request body
   // Get the user object from the request body
   // Add the message to the userFeed so its associated with the user
-  const message = req.body.message
-  const user = req.user
-  await userFeed.add(user, message)
-  res.redirect('/dashboard')
-});
+  const dogMessage = req.body
 
+  await userFeed.add(req.user, dogMessage.message)
+  res.redirect("/dashboard");
+});
 app.listen(port);
 console.log("Server started at http://localhost:" + port);
