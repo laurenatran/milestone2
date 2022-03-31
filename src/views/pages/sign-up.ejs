@@ -24,17 +24,15 @@
           background-repeat: no-repeat;
           background-size: cover;
         }
-        .column {
+        /* .column {
           height: 100%;
           float: left;
           width: 50%;
-        }
+        } */
 
         .column-color {
-          position: absolute;
-          width: 40%;
           background-color:rgba(100, 185, 238, 0.75);
-          margin-left: 55%;
+
         }
 
         .row:after {
@@ -96,13 +94,13 @@
 </head>
 
 <body>
-  <div class="row">
-    <div class="column">
+  <div class="columns">
+    <div class="column is-half">
       <a href="/">
         <img src="static/smallTalklogo.jpg"> 
       </a>
     </div>
-    <div class="column-color">
+    <div class="column-color column is-half">
       <div class="sign-up-content">
         <div class="header">
           Join us in bringing casual back into our daily interactions

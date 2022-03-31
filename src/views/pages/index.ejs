@@ -3,15 +3,19 @@
 
 <head>
   <%- include('../partials/head') %>
-    <!-- Include any custom css classes that you want available on this page here -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded&display=swap" rel="stylesheet">  
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@400;700&display=swap" rel="stylesheet">
-    <link href="src/views/pages/stylesheet.css" rel="stylesheet">
       <style>
         h1{
           font-family: 'Encode Sans Semi Expanded', sans-serif;
           font-size: 80px;
+        }
+        p{
+          font-size: 20px;
+          margin: 10%;
         }
         body{
           margin: 0;
@@ -24,27 +28,114 @@
           background-repeat: no-repeat;
           background-size: cover;
         }
+        /* .column {
+          height: 100%;
+          float: left;
+          width: 50%;
+        } */
+
+        .column-color {
+          background-color:rgba(100, 185, 238, 0.75);
+          height: 100%;
+          position: absolute;
+          right: 0px;
+        }
+        .column{
+          height:100%
+        }
+
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+
+        img {
+          width: 450px;
+          margin-top: 200px;
+          margin-left: 200px;
+        }
+
+        .sign-up-content {
+          margin-top: 100px;
+          margin-left: 50px;
+        }
+
+        .header {
+          font-size: 45px;
+          font-family: 'Encode Sans Semi Expanded', sans-serif;
+          color: rgba(0,36,86,1);
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .form{
+          margin-top: 40px;
+          margin-left: 150px;
+        }
+
+        .other{
+          margin-top: 280px;
+          margin-left: 120px;
+          color: rgba(0,36,86,1);
+          font-weight: bold;
+        }
+
+        button{
+          background-color:rgba(237, 207, 46, 1);
+          color:rgba(0,36,86,1);
+          font-weight: bold; 
+          border-radius: 20px;
+          margin-left: 75px;
+          height: 50px;
+          width: 200px; 
+        }
+
+        input{
+          border-radius: 100px;
+          height: 50px;
+          width: 300px; 
+          margin-bottom: 10px;
+          text-align: center;
+        }
+        .box{
+          background-color:rgba(237, 207, 46, 1);
+          margin-left: 10%;
+          margin-right: 10%;
+        }
+
+
+
       </style>
 </head>
 
 <body>
-  <header>
-    <%- include('../partials/nav') %>
-  </header>
-
-  <!-- CS5356 TODO #1 Add your landing page here -->
-  
-  <img src="src/views/pages/smallTalklogo.png" alt="logo" width="400" height="400">
   <div class="columns">
-    <div class="column">
-      <p>test left</p>
+    <div class="column is-half is-fullheight">
+      <a href="/">
+        <img src="static/smallTalklogo.jpg"> 
+      </a>
     </div>
-    <div class="column">
-      <p>test right</p>
+    <div class="hero is-fullheight"></div>
+      <div class="column-color column is-half">
+        <div class="sign-up-content">
+          <div class="header">
+            <div class="box">
+              let's run into each other on the internet
+            </div>
+            <p>
+              small talk aims to spark casual conversations like running into friends on the street which happens less and less often as our lives become more digital
+            </p>
+            <a class="button is-rounded" href="/sign-up"> Sign Up</a>
+            <a class="button is-rounded" href="/sign-in">Sign In</a>
+          </div>
+        </div>
+        <div id="login-error" style="display: none;">
+        </div>
+      </div>
     </div>
   </div>
  
-
 <%- include('../partials/footer') %>
 </body>
 
