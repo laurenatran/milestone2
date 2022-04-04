@@ -1,0 +1,24 @@
+{
+  "functions": {
+    "source": "./",
+    "runtime": "nodejs16"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "**",
+      "function": "app"
+    }]
+  },
+  "emulators": {
+    "hosting": {
+      "port": "8080"
+    }
+  }
+}
+
