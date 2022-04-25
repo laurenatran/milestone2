@@ -33,7 +33,24 @@ const add = async (user, message) => {
   });
 };
 
+const sendmessage = async (user, message) => {
+  const accountSid = "AC89cd9582197a4cf08ddcc13652804f8f";
+  const authToken = "3908cdc1f0e90e57b897e4068bd7b3cf";
+  const client = require('twilio')(accountSid, authToken);
+
+  const message1 = await client.messages
+    .create({
+      body: 'smallTalk: ' + message,
+      from: '+16204593186',
+      to: '+19082271594'
+    })
+    console.log(message1.sid)
+  };
+  
+
 module.exports = {
   get,
   add,
+  sendmessage,
 };
+

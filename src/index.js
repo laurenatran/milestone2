@@ -13,6 +13,7 @@ const port = process.env.PORT || 8080;
 const serviceAccount = require("./config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
+const { syncBuiltinESMExports } = require("module");
 // const { restart } = require("nodemon");
 
 // CS5356 TODO #2
@@ -52,6 +53,14 @@ app.get("/sign-up", function (req, res) {
 app.get("/dashboard", authMiddleware, async function (req, res) {
   const feed = await userFeed.get();
   res.render("pages/dashboard", { user: req.user, feed });
+});
+
+app.get("/admin", function (req, res) {
+  res.render("pages/admin");
+});
+
+app.get("/admin-success", function (req, res){
+  res.render("pages/admin-success");
 });
 
 app.post("/sessionLogin", async (req, res) => {
@@ -99,6 +108,8 @@ app.post("/sessionLogin", async (req, res) => {
 });
 
 
+
+
 app.get("/sessionLogout", (req, res) => {
   res.clearCookie("__session");
   res.redirect("/sign-in");
@@ -117,6 +128,13 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
 
 //app.listen(port);
 //console.log("Server started at http://localhost:" + port);
+app.post("/send-message", authMiddleware, async(req, res) => {
+  const question = req.body
+  await userFeed.sendmessage(req.user,  question.question)
+  res.redirect("/admin-success");
+});
 
 exports.app = functions.https.onRequest(app);
+
+
 

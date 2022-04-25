@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded&display=swap" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      h1{
+        font-family: 'Encode Sans Semi Expanded', sans-serif;
+        font-size: 80px;
+      }
+      p{
+        font-size: 20px;
+        margin: 10%;
+      }
+      body{
+        margin: 0;
+        min-height: 100%;
+      }
+      html{
+        min-height: 100%;
+        margin: 0;
+        background-image: url("https://img.freepik.com/free-photo/abstract-blur-interior-coffee-shop-cafe-background_42682-256.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      /* .column {
+        height: 100%;
+        float: left;
+        width: 50%;
+      } */
+
+      .column-color {
+        background-color:rgba(100, 185, 238, 0.75);
+        height: 100%;
+        position: absolute;
+        right: 0px;
+      }
+      .column{
+        height:100%
+      }
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      img {
+        width: 450px;
+        margin-top: 200px;
+        margin-left: 200px;
+      }
+
+      .sign-up-content {
+        margin-top: 100px;
+        margin-left: 50px;
+      }
+
+      .header {
+        font-size: 45px;
+        font-family: 'Encode Sans Semi Expanded', sans-serif;
+        color: rgba(0,36,86,1);
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .form{
+        margin-top: 40px;
+        margin-right: 15%;
+        margin-left: 15%;
+        text-align: center;
+      }
+
+      .other{
+        margin-top: 280px;
+        margin-left: 120px;
+        color: rgba(0,36,86,1);
+        font-weight: bold;
+      }
+
+      button{
+        background-color:rgba(237, 207, 46, 1);
+        color:rgba(0,36,86,1);
+        font-weight: bold; 
+        border-radius: 20px;
+        height: 50px;
+        width: 200px; 
+        text-align: center;
+      }
+
+      input{
+        border-radius: 100px;
+        height: 50px;
+        width: 300px; 
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .box{
+        background-color:rgba(237, 207, 46, 1);
+        margin-left: 10%;
+        margin-right: 10%;
+      }
+      </style>
+</head>
+
+<body>
+    <div class="columns">
+      <div class="column is-half">
+        <a href="/">
+          <img src="/smallTalklogo.jpg"> 
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column-color column is-half">
+          <div class="sign-up-content">
+            <div class="header">
+              Admin
+            </div>
+            <p>Question has been sent!</p>
+            <div class="other">
+            </div>
+          </div>
+          <div id="login-error" style="display: none;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+<script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth-compat.js"></script>
+
+
+
+</html>
