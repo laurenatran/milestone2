@@ -1,0 +1,27 @@
+
+
+<% explore.forEach(function(feedItem) { %>
+    <article style="margin-bottom: 1em;">
+      <div class="card-4">
+        <div class="profile-info">
+          <img src= <%= feedItem.photo_url %> > 
+        </div>
+        <div class="question">
+          <div class="question-content">
+            <p>
+              <%= feedItem.ques %>
+            </p>
+          </div>
+        </div>
+        <div class="answer">
+          <div class="answer-content">
+            <p>
+              <%= feedItem.res %>
+            </p>
+          </div>
+      </div>
+  
+    </article>
+  
+    <% }) %>
+  </html>

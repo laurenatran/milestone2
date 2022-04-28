@@ -5,16 +5,31 @@ const userFeed = [];
 
 const get = async () => {
   if (userFeed.length === 0) {
-    const response = await fetch("https://dog.ceo/api/breeds/image/random/5");
-    const body = await response.json();
-    for (const dogUrl of body.message) {
-      userFeed.push({
-        name: casual.full_name,
-        nameHandle: `@${casual.username}`,
-        message: `${casual.sentence}. ${casual.sentence}`,
-        imageSource: dogUrl,
-      });
-    }
+    userFeed.push({
+      ques: "What did you eat for breakfast today?",
+      res: "I had cereal with toast and some eggs. The cereal was my favorite kind - Cinnamon Toast Crunch. It reminds me of my childhood",
+      photo_url: "/profile.jpg"
+    });
+    userFeed.push({
+      ques: "Have you left your house yet today? What did you do?",
+      res: "I had class this morning at 8:30am that I had to go. Normally it is virtual but today we had presentations",
+      photo_url: "/profile2.jpg"
+    });
+    userFeed.push({
+      ques: "What's your favorite food?",
+      res: "My favorite food are dumplings because I love the way they taste and I used to make them with my Grandma when I was younger!",
+      photo_url: "/profile3.jpg"
+    });
+    userFeed.push({
+      ques: "What's your biggest irrational fear?",
+      res: "I'm terrified of getting attacked by a shark! Even in the most random places like a shallow pool",
+      photo_url: "/profile4.jpg"
+    });
+    userFeed.push({
+      ques: "Where would your dream vacation be?",
+      res: "I would love to go to Greece. Not only is it beautiful and full of beaches but I am a huge Mamma Mia fan",
+      photo_url: "/profile5.jpg"
+    });
   } else {
     return userFeed;
   }
@@ -22,14 +37,12 @@ const get = async () => {
   return userFeed;
 };
 
-const add = async (user, message) => {
-  const response = await fetch("https://dog.ceo/api/breeds/image/random/1");
-  const body = await response.json();
-  userFeed.unshift({
-    name: user.name,
-    nameHandle: user.email,
-    message: message,
-    imageSource: body.message,
+const add = async (user, question, answer) => {
+  userFeed.push({
+    photo_url: "/explore.jpg",
+    //nameHandle: user.email,
+    ques: question,
+    res: answer,
   });
 };
 

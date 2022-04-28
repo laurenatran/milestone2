@@ -12,6 +12,7 @@ const port = process.env.PORT || 8080;
 // serviceAccountKey.json
 const serviceAccount = require("./config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
+const exploreFeed = require("./app/explore-feed");
 const authMiddleware = require("./app/auth-middleware");
 const { syncBuiltinESMExports } = require("module");
 // const { restart } = require("nodemon");
@@ -52,7 +53,8 @@ app.get("/sign-up", function (req, res) {
 
 app.get("/dashboard", authMiddleware, async function (req, res) {
   const feed = await userFeed.get();
-  res.render("pages/dashboard", { user: req.user, feed });
+  const explore = await exploreFeed.get();
+  res.render("pages/dashboard", { user: req.user, feed, explore });
 });
 
 app.get("/admin", function (req, res) {
@@ -64,31 +66,6 @@ app.get("/admin-success", function (req, res){
 });
 
 app.post("/sessionLogin", async (req, res) => {
-  // CS5356 TODO #4
-  // Get the ID token from the request body
-  //const idToken = req.body.idToken.toString();
-  //const expiresIn = 60 * 60 * 24 * 5 * 1000;
-  // Create a session cookie using the Firebase Admin SDK
-  //admin.auth()
-  //.createSessionCookie(idToken, { expiresIn })
-  //.then(
-  //  (sessionCookie) => {
-      // Set cookie policy for session cookie.
-  //    const options = { maxAge: expiresIn, httpOnly: true, secure: true };
-  //    console.log("set session");
-  //    res.cookie('session', sessionCookie, options);
-  //    res.status(200).send(JSON.stringify({ status: "success" }));
-
-  //  },
-  //  (error) => {
-  //    res.status(401).send('UNAUTHORIZED REQUEST!');
-  //  }
-  //);
-
-//});
-  // Set that cookie with the name 'session'
-  // And then return a 200 status code instead of a 501
-
   const body = req.body;
   const idToken = body.idToken;
   
@@ -109,20 +86,19 @@ app.post("/sessionLogin", async (req, res) => {
 
 
 
-
 app.get("/sessionLogout", (req, res) => {
   res.clearCookie("__session");
   res.redirect("/sign-in");
 });
 
-app.post("/dog-messages", authMiddleware, async (req, res) => {
+app.post("/small-talk", authMiddleware, async (req, res) => {
   // CS5356 TODO #5
   // Get the message that was submitted from the request body
   // Get the user object from the request body
   // Add the message to the userFeed so its associated with the user
-  const dogMessage = req.body
+  const smallTalk = req.body
 
-  await userFeed.add(req.user, dogMessage.message)
+  await userFeed.add(req.user, smallTalk.question, smallTalk.answer)
   res.redirect("/dashboard");
 });
 

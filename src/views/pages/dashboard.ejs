@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script>
+  document.getElementById('btn').addEventListener('click', e => {
+    e.preventDefault();
+    // smooth scroll
+    document.getElementById('container').scrollTo({top: 175, behavior: 'smooth'});
+  });
+</script>
+
 <head>
   <%- include('../partials/head') %>
   <link rel="preconnect" href="https://fonts.googleapis.com"> 
@@ -14,11 +22,11 @@
           font-size: 80px;
         }
         body{
-          margin: 0;
-          min-height: 100%;
+          height: 100%;
+          overflow-y: hidden;
         }
         html{
-          min-height: 100%;
+          max-height: 100%;
           margin: 0;
           background-image: url("https://img.freepik.com/free-photo/abstract-blur-interior-coffee-shop-cafe-background_42682-256.jpg");
           background-repeat: no-repeat;
@@ -77,6 +85,162 @@
         .email{
           padding-left: 80%;
         }
+
+        .scroll-container {
+          overflow-y: auto;
+          max-height: 90%;
+          position: relative;
+          margin: 0 auto;
+          width: 90%;
+        }
+
+        .card-4 {
+          background-color: rgba(154,210,244,1);
+          font-family: 'Encode Sans Semi Expanded';
+          font-weight: bolder;
+          height: 350px;
+        }
+
+        .question{
+          position: absolute;
+          background-color: rgba(237,207,46,1);
+          width: 280px;
+          height: 100px;
+          border-radius: 60px;
+          text-align: center;
+          margin-left: 210px;
+          margin-top: 15px;
+        }
+
+        .answer{
+          position: absolute;
+          background-color:rgba(0,36,86,1);
+          width: 400px;
+          height: 180px;
+          border-radius: 80px;
+          margin-left: 60px;
+          margin-top: 150px;
+          text-align: center;
+        }
+
+        .question-content{
+          color:rgba(0,36,86,1);
+          padding-top: 10%;
+        }
+
+        .answer-content{
+          color: rgba(255,255,255,1);
+          padding-top: 10%;
+          padding-right: 2%;
+          padding-left: 2%;
+        }
+
+        .profile-info{
+          position: absolute;
+          height: 250px;
+          width: 250px;
+          margin-left: 10px;
+          margin-top: 10px;
+        }
+
+        .profile-info img{
+          border-radius: 50%;
+        }
+
+        .scroll-container-explore {
+          overflow-y: auto;
+          max-height: 90%;
+          position: relative;
+          margin: 0 auto;
+          width: 90%;
+        }
+
+        .card-1 {
+          font-size: 15px;
+        }
+
+        .card-1 .title {
+          text-align: center;
+          font-size: 35px;
+          font-weight: bolder;
+          color: antiquewhite;
+        }
+
+        .card-1 .answer{
+          position: absolute;
+          background-color:rgba(0,36,86,1);
+          width: 300px;
+          height: 140px;
+          border-radius: 80px;
+          margin-left: 30px;
+          margin-top: 180px;
+          text-align: center;
+        }
+
+        .card-1 .profile-info{
+          position: absolute;
+          height: 140px;
+          width: 140px;
+          margin-left: 10px;
+          margin-top: 10px;
+        }
+
+        .card-1 .question{
+          position: absolute;
+          background-color: rgba(237,207,46,1);
+          width: 240px;
+          height: 100px;
+          border-radius: 60px;
+          text-align: center;
+          margin-left: 120px;
+          margin-top: 50px;
+          padding-left: 10%;
+          padding-right: 10%;
+        }
+
+        .card-3 {
+          font-family: 'Encode Sans Semi Expanded';
+        }
+        
+        .card-3 select {
+          color: rgba(0,36,86,1);
+          width: 80%;
+          margin-left: 40px;
+          height: 60px;
+          font-size: 20px;
+          text-align: center;
+          font-weight: bolder;
+          margin-top: 20px;
+          margin-bottom: 50px;
+          overflow: hidden;
+          word-wrap: normal !important;
+          white-space: normal;
+        }
+
+        .card-3 button {
+          background-color: rgba(0,36,86,1);
+          color: white;
+          border-radius: 50%;
+          height: 90px;
+          width: 140px;
+          margin-left: 250px;
+          font-size: 25px;
+          font-weight: bolder;
+        }
+
+        .card-3 textarea {
+          height: 300px;
+          width: 400px;
+          margin-bottom: 20px;
+          font-size: 20px;
+          font-weight: bolder;
+          color: rgba(0,36,86,1);
+        }
+
+     
+            
+
+       
       </style>
 </head>
 
@@ -91,20 +255,20 @@
         <img src="/smallTalklogo.jpg"> 
       </a>
       <div class="card-1">
+        <div class="title">
+          <p>Explore Popular Posts</p>
+        </div>
+        <div class="scroll-container-explore">
+          <%- include('../partials/explore-stream', { explore: explore }) %>
+        </div>
       </div>
     </div>
     <div class="column">
       <div class="card-2">
-        <form action="/dog-messages" method="post">
-          <input class="input" type="text" name="message" placeholder="Went to the dog park today" />
-          <button class="button mt-2">Post</button>
-        </form>
         <br>
-        <div class="card">
-          <div class="feed-stream">
-            <!-- include('../partials/feed-stream', { feed: feed }) -->
-          </div>
-        </div> 
+        <div class="scroll-container">
+          <%- include('../partials/feed-stream', { feed: feed }) %>
+        </div>
       </div>
     </div>
     <div class="column">
@@ -120,7 +284,28 @@
           <a href="/sign-in" class="button is-primary">Sign In</a>
         <% }%>
       </div>
-      <div class="card-3"></div>
+      <div class="card-3">
+        <form action="/small-talk" method="post">
+          <select name = "question">
+            <option value = "What's your favorite color?" selected>What's your favorite color?</option>
+            <option value = "If you could live anywhere in the world, where would you pick?">If you could live anywhere in the world, where would you pick?</option>
+            <option value = "What advice would you tell your younger self?">What advice would you tell your younger self?</option>
+            <option value = "Which holiday is your favorite?">Which holiday is your favorite?</option>
+            <option value = "What's the scariest thing you've ever done?">What's the scariest thing you've ever done?</option>
+            <option value = "Have you ever had any pets?">Have you ever had any pets?</option>
+            <option value = "What's the last thing you ate?">What's the last thing you ate?</option>
+            <option value = "What did you do last night?">What did you do last night?</option>
+            <option value = "What's the next trip you have planned?">What's the next trip you have planned?</option>
+            <option value = "What's the worst thing you've ever eaten?">What's the worst thing you've ever eaten?</option>
+            <option value = "Who was the first person you saw in concert?">Who was the first person you saw in concert?</option>
+            <option value = "What's the last book you read?">What's the last book you read?</option>
+            <option value = "What tv show is your guilty pleasure?">What tv show is your guilty pleasure?</option>
+            <option value = "What animal are you most afraid of?">What animal are you most afraid of?</option>
+         </select>
+          <textarea name="answer"></textarea>
+          <button>Post</button>
+        </form>
+      </div>
     </div>
   </div>
 
