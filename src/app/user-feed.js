@@ -47,8 +47,8 @@ const add = async (user, question, answer) => {
 };
 
 const sendmessage = async (user, message) => {
-  const accountSid = "AC89cd9582197a4cf08ddcc13652804f8f";
-  const authToken = "3908cdc1f0e90e57b897e4068bd7b3cf";
+  const accountSid = 'AC89cd9582197a4cf08ddcc13652804f8f';
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
   const client = require('twilio')(accountSid, authToken);
 
   const message1 = await client.messages

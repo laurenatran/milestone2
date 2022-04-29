@@ -15,6 +15,7 @@ const userFeed = require("./app/user-feed");
 const exploreFeed = require("./app/explore-feed");
 const authMiddleware = require("./app/auth-middleware");
 const { syncBuiltinESMExports } = require("module");
+const twilio = require("twilio");
 // const { restart } = require("nodemon");
 
 // CS5356 TODO #2
@@ -58,9 +59,9 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 });
 
 app.get("/admin", function (req, res) {
-  res.render("pages/admin");
+  res.render("pages/admin", {nodeEnv: process.env.TWILIO_AUTH_TOKEN });
 });
-
+ 
 app.get("/admin-success", function (req, res){
   res.render("pages/admin-success");
 });
