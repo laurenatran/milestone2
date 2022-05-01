@@ -17,12 +17,20 @@ const authMiddleware = require("./app/auth-middleware");
 const { syncBuiltinESMExports } = require("module");
 const twilio = require("twilio");
 // const { restart } = require("nodemon");
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+
+
 
 // CS5356 TODO #2
 // Uncomment this next block after you've created serviceAccountKey.json
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
  });
+
+ const db = getFirestore();
+
+
 
 // use cookies
 app.use(cookieParser());
@@ -100,14 +108,27 @@ app.post("/small-talk", authMiddleware, async (req, res) => {
   const smallTalk = req.body
 
   await userFeed.add(req.user, smallTalk.question, smallTalk.answer)
+  const docRef = db.collection('feed').doc(smallTalk.question + ", " + smallTalk.answer)
+  await docRef.set({
+    user: req.user,
+    question: smallTalk.question,
+    answer: smallTalk.answer,
+    date: Date.now()
+  })
   res.redirect("/dashboard");
 });
 
 //app.listen(port);
 //console.log("Server started at http://localhost:" + port);
 app.post("/send-message", authMiddleware, async(req, res) => {
-  const question = req.body
-  await userFeed.sendmessage(req.user,  question.question)
+  const question = req.body;
+  await userFeed.sendmessage(req.user,  question.question);
+  const docRef = db.collection('questions').doc(question.question);
+  await docRef.set({
+    user: req.user,
+    question: req.body,
+    date: Date.now()
+  });
   res.redirect("/admin-success");
 });
 
