@@ -287,6 +287,9 @@
       <div class="card-3">
         <form action="/small-talk" method="post">
           <select name = "question">
+          <% dbQuestions.forEach(function(dbQuestion) { %>
+              <option value="<%= dbQuestion %>"> <%= dbQuestion %></option>
+            <% }) %>
             <option value = "What's your favorite color?" selected>What's your favorite color?</option>
             <option value = "If you could live anywhere in the world, where would you pick?">If you could live anywhere in the world, where would you pick?</option>
             <option value = "What advice would you tell your younger self?">What advice would you tell your younger self?</option>
