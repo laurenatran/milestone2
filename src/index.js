@@ -63,7 +63,12 @@ app.get("/sign-up", function (req, res) {
 app.get("/dashboard", authMiddleware, async function (req, res) {
   const feed = await userFeed.get();
   const explore = await exploreFeed.get();
-  res.render("pages/dashboard", { user: req.user, feed, explore });
+  const dbCollect = db.collection('questions').get();
+  const dbQuestions = [];
+  (await dbCollect).forEach(doc => {
+    dbQuestions.push(doc.id);
+  });
+  res.render("pages/dashboard", { user: req.user, feed, explore, dbQuestions});
 });
 
 app.get("/admin", function (req, res) {
